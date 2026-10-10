@@ -3,7 +3,9 @@
 A hospital medical supply inventory system built to solve a real, specific problem: **hospitals lose money and stock through untracked, unaccountable inventory movements.** Every unit of stock is traceable, every action is attributable to a real person, and the system flags unusual activity automatically — without ever pretending a black-box AI model is more trustworthy than it actually is.
 
 **Live app:** [thriving-gumdrop-eb9e4e.netlify.app](https://thriving-gumdrop-eb9e4e.netlify.app)
+
 **Live API:** [healthtech-ai-powered-application.onrender.com](https://healthtech-ai-powered-application.onrender.com)
+
 **Frontend repo:** [healthtech-dashboard](https://github.com/AmasonReteti/healthtech-dashboard)
 
 > The backend runs on a free hosting tier and goes to sleep after inactivity. The first request after idling can take 30-60 seconds to wake it up — that's expected, not a bug.
@@ -70,16 +72,20 @@ This system is built around one core design decision: **current stock is never s
 ## Tech Stack
 
 **Backend:** Java, Spring Boot, Spring Security, PostgreSQL (Supabase), Redis (Upstash), GraphQL, Docker
+
 **Frontend:** Angular, TypeScript, Tailwind CSS
+
 **Hosting:** Render (API), Netlify (frontend)
 
 ## Architecture
 
-Browser → Angular (Netlify) → JWT Auth → Spring Boot REST/GraphQL (Render, Docker)
-↓
-StockService (all business rules)
-↓                    ↓
-PostgreSQL (Supabase)    Redis (Upstash)
+```text
+Browser -> Angular (Netlify) -> JWT Auth -> Spring Boot REST/GraphQL (Render, Docker)
+                                                    ↓
+                                      StockService (all business rules)
+                                        ↓                       ↓
+                      PostgreSQL (Supabase)                 Redis (Upstash)
+'''
 
 `StockService` is the single entry point for every stock change — no controller or repository is allowed to bypass it, which is what makes the negative-stock protection and approval rules impossible to accidentally skip.
 
