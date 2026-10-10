@@ -85,7 +85,8 @@ Browser -> Angular (Netlify) -> JWT Auth -> Spring Boot REST/GraphQL (Render, Do
                                       StockService (all business rules)
                                         ↓                       ↓
                       PostgreSQL (Supabase)                 Redis (Upstash)
-'''
+
+```
 
 `StockService` is the single entry point for every stock change — no controller or repository is allowed to bypass it, which is what makes the negative-stock protection and approval rules impossible to accidentally skip.
 
